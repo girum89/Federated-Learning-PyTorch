@@ -13,14 +13,15 @@ from utils import get_dataset
 from options import args_parser
 from update import test_inference
 from models import MLP, CNNMnist, CNNFashion_Mnist, CNNCifar
-
+import os
 
 if __name__ == '__main__':
     args = args_parser()
     if args.gpu:
-        torch.cuda.set_device(args.gpu)
+        torch.cuda.set_device(int(args.gpu))
     device = 'cuda' if args.gpu else 'cpu'
-
+    #print(os.getcwd())
+    
     # load datasets
     train_dataset, test_dataset, _ = get_dataset(args)
 
@@ -89,7 +90,7 @@ if __name__ == '__main__':
     plt.plot(range(len(epoch_loss)), epoch_loss)
     plt.xlabel('epochs')
     plt.ylabel('Train loss')
-    plt.savefig('../save/nn_{}_{}_{}.png'.format(args.dataset, args.model,
+    plt.savefig('nn_{}_{}_{}.png'.format(args.dataset, args.model,
                                                  args.epochs))
 
     # testing
